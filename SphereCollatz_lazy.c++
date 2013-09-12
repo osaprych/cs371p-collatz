@@ -19,7 +19,6 @@ int lazy_cache[10000] = { 0 };
     #define NDEBUG
 #endif
 
-//std::cout;
 // ------------
 // collatz_read
 // ------------
@@ -37,55 +36,10 @@ bool collatz_read (std::istream& r, int& i, int& j) {
 // collatz_eval
 // ------------
 
-// int collatz_eval (int i, int j) {
-//     // <your code>
-//     int lazy_cache[1000] = { 0 };
-//     if (i > j){
-//     	int temp = j;
-//     	j = i;
-//     	i = temp;    	
-//     }
-//     if (j/2 > i){
-//     	i = j/2;
-//     }
-//     int v = 1;
-// 	int max = 1;
-// 	int count = 0;
-// 	for (; i <= j; i++){
-// 		// v = stores cycle length	
-// 		v = 1;
-// 		count = i;
-// 		while (count > 1){
-// 			if (lazy_cache[count] != 0){
-// 				v += lazy_cache[count];
-// 				count = 1;
-// 			}
-// 			else if (count%2 == 0){
-// 				count = count/2;
-// 				v++;
-// 			}
-// 			else{
-// 				count = 3*count + 1;
-// 				v++;
-// 			}
-// 		}
-// 		if (v > max){
-// 			max = v;
-// 		}
-// 		if (v <= sizeof(lazy_cache) - 1){
-// 			lazy_cache[i] = v;
-// 		}
-// 	}
-// 	assert(max > 0);
-// 	return max;}
 int collatz_eval (int i, int j) {
     // <your code>
     using namespace std;
-    
-    //cout << sizeof(lazy_cache) << endl;
-    // for (int i = 1; i < 50; i++){
-    // 	cout << lazy_cache[i] << endl;
-    // }
+
     if (i > j){
     	int temp = j;
     	j = i;
@@ -102,14 +56,8 @@ int collatz_eval (int i, int j) {
 		v = 1;
 		count = i;
 		while (count > 1){
-			// if (lazy_cache[count] != 0){
-			// 	return lazy_cache[count] + v;
-			// }
 			if ((count < 10000) && (lazy_cache[(unsigned)count] != 0)){
 				v += lazy_cache[(unsigned)count];
-				//cout << "lazy_cache " << count << "  " << (unsigned)count << endl;
-				//cout << lazy_cache[count] << endl;
-				//cout << sizeof(lazy_cache) << endl;
 				count = 1;
 			}
 			if (count%2 == 0){
@@ -117,10 +65,8 @@ int collatz_eval (int i, int j) {
 				v++;
 			}
 			else{
-				count = count + (count >> 1) + 1;//3*count + 1;
+				count = count + (count >> 1) + 1;// (3n+1)/2
 				v += 2;
-				// count = 3*count + 1;
-				// v++;
 			}
 		}
 		if (v > max){
@@ -132,6 +78,7 @@ int collatz_eval (int i, int j) {
 	}
 	assert(max > 0);
 	return max;}
+
 // -------------
 // collatz_print
 // -------------

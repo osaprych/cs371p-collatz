@@ -13,6 +13,8 @@
 
 #include "Collatz.h"
 
+int lazy_cache[10000] = { 0 };
+
 //std::cout;
 // ------------
 // collatz_read
@@ -33,12 +35,16 @@ bool collatz_read (std::istream& r, int& i, int& j) {
 
 int collatz_eval (int i, int j) {
     // <your code>
-    //int lazy_cache[1000000];
+    using namespace std;
+
     if (i > j){
     	int temp = j;
     	j = i;
     	i = temp;    	
     }
+	if (j/2 > i){
+		i = j/2;
+	}
     int v = 1;
 	int max = 1;
 	int count = 0;
@@ -47,20 +53,24 @@ int collatz_eval (int i, int j) {
 		v = 1;
 		count = i;
 		while (count > 1){
-			// if (lazy_cache[count] != 0){
-			// 	return lazy_cache[count] + v;
-			// }
+			if ((count < 10000) && (lazy_cache[(unsigned)count] != 0)){
+				v += lazy_cache[(unsigned)count];
+				count = 1;
+			}
 			if (count%2 == 0){
-				count = count/2;
+				count = count>>1;
 				v++;
 			}
 			else{
-				count = 3*count + 1;
-				v++;
+				count = count + (count >> 1) + 1;// (3n+1)/2
+				v += 2;
 			}
 		}
 		if (v > max){
 			max = v;
+		}
+		if (v <= 10000 && i < 10000){
+			lazy_cache[(unsigned)count] = v;
 		}
 	}
 	assert(max > 0);
