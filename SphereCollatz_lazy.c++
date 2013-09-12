@@ -13,6 +13,8 @@
 
 //#include "Collatz.h"
 
+int lazy_cache[10000] = { 0 };
+
 #ifdef ONLINE_JUDGE
     #define NDEBUG
 #endif
@@ -79,7 +81,7 @@ bool collatz_read (std::istream& r, int& i, int& j) {
 int collatz_eval (int i, int j) {
     // <your code>
     using namespace std;
-    int lazy_cache[10000] = { 0 };
+    
     //cout << sizeof(lazy_cache) << endl;
     // for (int i = 1; i < 50; i++){
     // 	cout << lazy_cache[i] << endl;
@@ -103,15 +105,15 @@ int collatz_eval (int i, int j) {
 			// if (lazy_cache[count] != 0){
 			// 	return lazy_cache[count] + v;
 			// }
-			if ((count < 1000) && (lazy_cache[(unsigned)count] != 0)){
+			if ((count < 10000) && (lazy_cache[(unsigned)count] != 0)){
 				v += lazy_cache[(unsigned)count];
-				cout << "lazy_cache " << count << "  " << (unsigned)count << endl;
+				//cout << "lazy_cache " << count << "  " << (unsigned)count << endl;
 				//cout << lazy_cache[count] << endl;
 				//cout << sizeof(lazy_cache) << endl;
 				count = 1;
 			}
 			if (count%2 == 0){
-				count = count/2;
+				count = count>>1;
 				v++;
 			}
 			else{
@@ -124,7 +126,7 @@ int collatz_eval (int i, int j) {
 		if (v > max){
 			max = v;
 		}
-		if (v <= 1000 && i < 1000){
+		if (v <= 10000 && i < 10000){
 			lazy_cache[(unsigned)count] = v;
 		}
 	}
