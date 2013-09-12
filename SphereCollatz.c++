@@ -96,7 +96,6 @@ void collatz_solve (std::istream& r, std::ostream& w) {
     int j;
     while (collatz_read(r, i, j)) {
         const int v = collatz_eval(i, j);
-	//cout << v << endl;
         collatz_print(w, i, j, v);}}
 
 // ----

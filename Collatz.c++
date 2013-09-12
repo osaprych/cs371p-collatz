@@ -83,9 +83,6 @@ int collatz_eval (int i, int j) {
 void collatz_print (std::ostream& w, int i, int j, int v) {
     w << i << " " << j << " " << v << std::endl;}
 
-// void collatz_cache (std::ostream& w, int i, int j, int v) {
-//     w << v << std::endl;}
-
 // -------------
 // collatz_solve
 // -------------
@@ -96,7 +93,5 @@ void collatz_solve (std::istream& r, std::ostream& w) {
     int j;
     while (collatz_read(r, i, j)) {
         const int v = collatz_eval(i, j);
-	//cout << v << endl;
         collatz_print(w, i, j, v);
-    //    collatz_cache(w, i, j, v);
     }}
