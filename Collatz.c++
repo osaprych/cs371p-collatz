@@ -33,6 +33,12 @@ bool collatz_read (std::istream& r, int& i, int& j) {
 
 int collatz_eval (int i, int j) {
     // <your code>
+    //int lazy_cache[1000000];
+    if (i > j){
+    	int temp = j;
+    	j = i;
+    	i = temp;    	
+    }
     int v = 1;
 	int max = 1;
 	int count = 0;
@@ -41,6 +47,9 @@ int collatz_eval (int i, int j) {
 		v = 1;
 		count = i;
 		while (count > 1){
+			// if (lazy_cache[count] != 0){
+			// 	return lazy_cache[count] + v;
+			// }
 			if (count%2 == 0){
 				count = count/2;
 				v++;
@@ -64,6 +73,9 @@ int collatz_eval (int i, int j) {
 void collatz_print (std::ostream& w, int i, int j, int v) {
     w << i << " " << j << " " << v << std::endl;}
 
+// void collatz_cache (std::ostream& w, int i, int j, int v) {
+//     w << v << std::endl;}
+
 // -------------
 // collatz_solve
 // -------------
@@ -75,4 +87,6 @@ void collatz_solve (std::istream& r, std::ostream& w) {
     while (collatz_read(r, i, j)) {
         const int v = collatz_eval(i, j);
 	//cout << v << endl;
-        collatz_print(w, i, j, v);}}
+        collatz_print(w, i, j, v);
+    //    collatz_cache(w, i, j, v);
+    }}

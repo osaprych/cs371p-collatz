@@ -45,4 +45,10 @@ To document the program:
 int main () {
     using namespace std;
     collatz_solve(cin, cout);
+
+    // int i;
+    // int *cache = new int[1000000];
+    // while (read(cin, i)) {
+    //     cache[i] = i;
+    // }
     return 0;}
